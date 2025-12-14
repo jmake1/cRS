@@ -1,10 +1,46 @@
-# cRS
+# cRS 📈
 
-Relative Strength quantitative research tool focused on crypto markets, aims to quantify the relation between crypto assets, objectively and dynamically.
+**Relative Strength** quantitative research tool focused on crypto markets, aims to quantify the relation between crypto assets, objectively and dynamically.
 
-It uses Linear Regression as the base, with Exponential Weighted Moving Averages (EWMA) to mitigate heteroscedasticity and Ridge regularization for multicollinearity.
+**Linear Regression** is the base, using **Exponential Weighted Moving Averages (EWMA)** to mitigate heteroscedasticity and **Ridge** regularization for multicollinearity.
 
-# Installation
+There is a **Hidden Markov Model** integration for regime classification, can be trained to identify all kinds of regimes, including volatility and trend.
+
+The tool is composed by a backend that encapsulates all the logic and a simple **streamlit UI** that reduces the interaction friction.
+
+# Use Cases 🖇️
+
+As a quantitative research tool, this project can be used as a helping hand while analysing the highly correlated, noise full cryptocurrency market. Made to robustify the data in a way that can be interpreted without letting outliers explode estimations.
+
+Beyond exploratory analysis, the tool can be used as a systematic decision-support layer for crypto workflows, quantitative or not:
+- Cross-Asset Relative Strength Ranking
+- Pair Selection
+- Statistical Arbitrage
+- Dynamic Beta and Exposure Estimation
+- Regime-Aware Signal Conditioning
+- Portfolio Construction
+- Risk Monitoring
+- Correlation Stress Detection
+- Research and Model Validation
+
+It must be noted that this tool is not designed for high-frequency or microstructure-driven strategies. Its advantage lies in medium- to low-frequency quantitative research, where robustness, interpretability, and regime awareness matter more than latency.
+
+It is highly advised to have familiarization with the Exponential Weigthed Moving Average as a statistical tool, and its parameteres, mainly the decay factor that controls the responsiveness and memory of the Moving Average.
+
+# Disclaimer ‼️
+Not Financial Advice
+
+This project is provided for research and educational purposes only.
+Nothing in this repository constitutes investment advice, financial advice, trading advice, or a recommendation to buy or sell any asset.
+
+Cryptocurrency markets are highly volatile and subject to regime shifts, liquidity constraints, and structural risks. Past performance, simulated or historical, is not indicative of future results.
+
+The authors and contributors assume no responsibility for financial losses, damages, or decisions made based on the use of this software.
+You are solely responsible for understanding the risks involved and for complying with all applicable laws and regulations in your jurisdiction.
+
+Use at your own risk.
+
+# Installation  🛠️
 
 As a python focused project, it is recommended the use of a environment manager, `ex: conda`
 
@@ -40,7 +76,7 @@ The project uses poetry to handle all the dependencies and installation requirem
 
 It can take a few minutes to fetch everything.
 
-# Run
+# Run ▶️
 
 The project uses environment variables for certain configurations and paths.
 
@@ -54,7 +90,7 @@ A webpage should open in your default browser.
 
 Here, the first run can take a while to load, since there are no caches available.
 
-# Main features
+# Main features 🧪
 
 - Historic OHLCV data loading from multiple sources/exchanges
 
@@ -68,21 +104,15 @@ Here, the first run can take a while to load, since there are no caches availabl
 
 - Hidden Markov Model training and visualization for regime classification
 
-# Usage
-
-It is highly advised the familiarization with the Exponential Weigthed Moving Average as a statistical tool, and its parameteres, mainly the decay factor that controls the responsiveness and memory of the Moving Average.
-
-As a quantitative research tool, this project can be used as a helping hand while analysing the highly correlated, noise full cryptocurrency market.
-
 ## Data Loader
 
 Data currently can be fetched from **Binance**, **Bybit** and **MEXC** through their public API's, both for spot as well as for perpetuals/futures contracts.
 
 Supported intervals: 1h, 4h, 1D, 1W, 1M.
 
-Data is always read and written to the data folder (env variable, cRS/data/ by default). 
+Data is always read and written to the data folder (env variable, **cRS/data/ by default**). 
 
-The update functionality will always check the data available for the respective source, instrument, interval, and update every ticker to the last available timestamp (does a full fetch for not existing tickers, discards not available tickers).
+The update functionality will **always** check the data available for the respective source, instrument, interval, and update every ticker to the last available timestamp (does a full fetch for not existing tickers, discards not available tickers).
 
 When there is no data available for the combination source + instrument + interval, a full fetch will take place. Can take a few minutes depending on the interval.
 
@@ -95,15 +125,15 @@ The app allows loading from multiple sources and instruments and obtaining a tic
 
 ## Parameters
 
-- start_date, end_date -> Data can be filtered by date time range with start_date, end_date.
+- **start_date, end_date**: Data can be filtered by date time range with start_date, end_date.
 
-- discard, selection -> tickers can be excluded, or a selection of tickers can be set.
+- **discard, selection**: tickers can be excluded, or a selection of tickers can be set.
 
-- factors -> Multiple factors are supported, all factor combinations are computed and can be visualized. For example, for the set {BTCUSDT, ETHUSDT}, we have {BTCUSDT}, {ETHUSDT}, {BTCUSDT, ETHUSDT}, to be computed, we can then see the rest of the universe vs each combination as well as BTCUSDT vs ETHUSDT.
+- **factors**: Multiple factors are supported, all factor combinations are computed and can be visualized. For example, for the set {BTCUSDT, ETHUSDT}, we have {BTCUSDT}, {ETHUSDT}, {BTCUSDT, ETHUSDT}, to be computed, we can then see the rest of the universe vs each combination as well as BTCUSDT vs ETHUSDT.
 
-- min_obs -> Minimum number of observations to consider a ticker candidate for analysis.
+- **min_obs**: Minimum number of observations to consider a ticker candidate for analysis.
 
-- beta_lambda (λβ) -> EWMA parameter, the weigth decaying factor.
+- **beta_lambda (λβ)**: EWMA parameter, the weigth decaying factor.
 
 ## Results
 
@@ -115,26 +145,26 @@ The app allows loading from multiple sources and instruments and obtaining a tic
 
 ## HMM
 
-Hidden Markov Chains are powerfull tools when dealing with time series data with varying regimes. The app integrates a simple implementation of a Hidden Markov Model with Gaussian Emissions and Gaussian Mixture Emissions, from the python library hmmlearn.
+**Hidden Markov Chains** are powerfull tools when dealing with time series data with varying regimes. The app integrates a simple implementation of a **Hidden Markov Model** with **Gaussian Emissions** and **Gaussian Mixture Emissions**, from the python library **hmmlearn**.
 The model can be trained after the factorization, it uses the computed z-scores that are almost homoscedastic, so we can have better results.
 
 ### Model Params
 
-- Offset - Wether to discard a number of initial lines of each ticker
+- **Offset** - Wether to discard a number of initial lines of each ticker
 
-- States - Number of states to train
+- **States** - Number of states to train
 
-- Mix States - Only for GMMHMM (Gaussian Mixture Emissions)
+- **Mix States** - Only for GMMHMM (Gaussian Mixture Emissions)
 
-- Iterations - Number of max iterations
+- **Iterations** - Number of max iterations
 
-- Tol - Tolerance (a value smaller that tol indicates that the model converged)
+- **Tol** - Tolerance (a value smaller that tol indicates that the model converged)
 
-- Min Cov - Minimum of covariance between states
+- **Min Cov** - Minimum of covariance between states
 
-- Multi - Wether to give the data resulted from all factor combinations or only from the main combination
+- **Multi** - Wether to give the data resulted from all factor combinations or only from the main combination
 
-- Type - HMM / GMMHMM
+- **Type** - HMM / GMMHMM
 
 ### Model Visualization
 
@@ -146,13 +176,13 @@ The model can be trained after the factorization, it uses the computed z-scores 
 
 - Transition matrix
 
-## Going forward...
+## Going forward...  ⏩
 
 I will maintain and update the tool with bug fixes, new features, etc as time allows me to. 
 
 Feel free to test, report bugs/problems and suggest ideas to be implemented.
 
-## Contacts
+## Contacts  📇
 
 Project related questions or issues can be left in the issues tab.
 
@@ -160,19 +190,18 @@ Other matters -> jmake1@proton.me
 
 I'll try to respond as soon as I can.
 
-## Buy me a coffee
+## Buy me a coffee  ☕️
+- **BTC** - bc1qhwg75jmq99lqjahtsjnpdyl77zlfaynsx0jnpx
 
-- BTC - bc1qhwg75jmq99lqjahtsjnpdyl77zlfaynsx0jnpx
+- **ETH/BNB/USDT** - 0xb38A9C2C04d891603Ff69A740Ded417EEE42C1F1
 
-- ETH/BNB/USDT - 0xb38A9C2C04d891603Ff69A740Ded417EEE42C1F1
+- **XMR** - 46ZVTYMZcXPC3UUGyJBkffEFsosydiAvJ4jJxifHVsLoi9z8kDp4kYnWQduFvPmcCZVzX15MfvXSNjVkqQKpVc1RJw3vuP7
 
-- XMR - 46ZVTYMZcXPC3UUGyJBkffEFsosydiAvJ4jJxifHVsLoi9z8kDp4kYnWQduFvPmcCZVzX15MfvXSNjVkqQKpVc1RJw3vuP7
+- **SOL** - 8mCRUhzuQ7CAJVSWLAZmYsNHMwUrZ1EoVnwTtuc5Ty3g
 
-- SOL - 8mCRUhzuQ7CAJVSWLAZmYsNHMwUrZ1EoVnwTtuc5Ty3g
+- **ZEC** - t1TFnj5te7t2VuqEnm4CiZdQWyR5oKzHgQv
 
-- ZEC - t1TFnj5te7t2VuqEnm4CiZdQWyR5oKzHgQv
-
-- KAS - kaspa:qqgw0uujksxhj4lu0emhfjr04adqs6mjth37uvvwcsn8jum5pvhnvyqpfm347
+- **KAS** - kaspa:qqgw0uujksxhj4lu0emhfjr04adqs6mjth37uvvwcsn8jum5pvhnvyqpfm347
 
 ## License
 
