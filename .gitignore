@@ -1,0 +1,17 @@
+.env
+.git
+.github
+.vscode
+.DS_Store
+__pycache__
+*.feather
+*.csv
+*.parquet
+*.db
+*.log
+*.joblib
+model_store
+data
+history
+logs
+pyrigthconfig.json

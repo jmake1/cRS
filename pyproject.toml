@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "cRS"
+version = "1.0.0"
+description = "Relative Strength quant research tool focused on crypto markets"
+authors = ["jmake1 <jmake1@proton.me>"]
+readme = "README.md"
+packages = [
+    { include = "backend", from = "src" },
+    { include = "app", from = "src" },
+    { include = "config", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.51"
+pandas = "^2.2"
+numpy = "^1.26"
+statsmodels = "^0.14"
+requests = "^2.28"
+plotly = "^5.19"
+matplotlib = "^3.8"
+pydantic-settings = "^2.6"
+hmmlearn = "^0.3.3"
+scipy = "^1.15.3"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.3"
+ruff = "^0.3"
+mypy = "^1.9"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
