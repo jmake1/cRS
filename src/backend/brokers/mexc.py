@@ -1,5 +1,3 @@
-# Adicionando métodos para os endpoints solicitados em brokers/mexc.py
-
 import requests
 from typing import List, Optional, Literal
 import pandas as pd

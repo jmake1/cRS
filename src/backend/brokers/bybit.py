@@ -1,5 +1,3 @@
-# brokers/bybit.py
-
 import requests
 from typing import List, Optional, Literal
 import pandas as pd

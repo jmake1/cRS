@@ -7,7 +7,7 @@ def ohlcv_data_form():
         sources = st.multiselect("Sources", ['bybit', 'mexc', 'binance'], default=['bybit'])
         instruments = st.multiselect("Instruments", ['spot', 'perp'], default=['spot'])
         update = st.checkbox("Update")
-        interval = st.radio("Interval", ['1h','2h','4h','1d'], index=3)
+        interval = st.radio("Interval", ['1h','4h','1d','1w','1M'], index=3)
         load = st.form_submit_button("Load Data")
 
     if load:
